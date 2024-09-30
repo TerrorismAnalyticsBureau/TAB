@@ -2,6 +2,7 @@
 # Licensed under the MIT License.
 
 variables:
+- group: AzureSecrets
 - template: ../../config-infra-prod.yml
 
 # This sets up the optional triggers for the running the pipeline.
@@ -103,7 +104,7 @@ stages :
       steps:
       - script: |
           git config --global user.email "andujarbrutus@gmail.com"
-          git config --global user.name "brutusa"
+          git config --global user.name "Brutusa"
           git remote add github https://$(GITHUB_TOKEN)@github.com/TerrorismAnalyticsBureau/TAB.git
           git push github HEAD:main
         displayName: 'Push changes to GitHub Organization Repo'
