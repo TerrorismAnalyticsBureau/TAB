@@ -106,6 +106,7 @@ stages :
           git config --global user.email "andujarbrutus@gmail.com"
           git config --global user.name "Brutusa"
           git remote add github https://$(GITHUB_TOKEN)@github.com/TerrorismAnalyticsBureau/TAB.git
+          git pull github main --rebase
           git push github HEAD:main
         displayName: 'Push changes to GitHub Organization Repo'
         env:
