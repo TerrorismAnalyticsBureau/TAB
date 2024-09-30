@@ -1,0 +1,27 @@
+# Updates GitHub every friday
+
+variables:
+- group: AzureSecrets
+
+trigger: none  # Disable CI triggers for this pipeline
+
+schedules:
+- cron: "0 12 * * 5"  # Run at 12:00 PM UTC every Friday
+  displayName: "Weekly Push to GitHub"
+  branches:
+    include:
+      - main
+
+stages:
+- stage: PushToGitHub
+  jobs:
+  - job: PushJob
+    steps:
+    - checkout: self
+    - script: |
+        git config --global user.email "your-email@example.com"
+        git config --global user.name "your-username"
+        git remote add github https://$(GITHUB_TOKEN)@github.com/TerrorismAnalyticsBureau/TAB.git
+        git pull github main --rebase
+        git push github HEAD:main
+      displayName: 'Push to GitHub'
