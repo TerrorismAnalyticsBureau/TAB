@@ -96,3 +96,17 @@ stages :
           max_instances:  ${{ variables.training_target_max_nodes }}
           cluster_tier:   $(training_target_tier)
 
+# Push to GitHub (after successful build and test)
+  - stage: PushToGitHub
+    jobs:
+    - job: PushJob
+      steps:
+      - script: |
+          git config --global user.email "andujarbrutus@gmail.com"
+          git config --global user.name "brutusa"
+          git remote add github https://$(GITHUB_TOKEN)@github.com/TerrorismAnalyticsBureau/TAB.git
+          git push github HEAD:main
+        displayName: 'Push changes to GitHub Organization Repo'
+        env:
+          GITHUB_TOKEN: $(GITHUB_TOKEN)
+
